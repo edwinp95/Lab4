@@ -51,13 +51,35 @@ function getCart($email) {
 
 function deleteItem($id) {
 
-    //TODO complete implementation using the product id
-    alert("cart.js/deleteItem() is not implemented")
+    $.ajax({
+        url: Url+'Cart/' + $id,
+        type: 'delete',
+        success: function (data) { //on success
+            alert("Item Removed!");
+            window.location.href = './cart.html'; //redirect to the shopping cart page
+        },
+        error: function (data) { //on error, throw an alert
+            alert("Error removing product.");
+        }
+    });
 }
 
 function checkOut() {
 
-    //TODO complete implementation
-    alert("cart.js/checkOut() is not implemented")
+    $.ajax({
+        url: Url+'Cart',
+        type: 'put',
+        dataType: 'json',
+        data: JSON.stringify({"email":email}), //the json is defined here using javascript's dictionary syntax.
+        contentType: 'text/plain',
+    
+        success: function (data) { //on success
+            alert("Successfully Checked out!");
+            window.location.href = './cart.html'; //redirect to the shopping cart page
+        },
+        error: function (data) { //on error, throw an alert
+            alert("Error checking out.");
+        }
+    });
 
 }

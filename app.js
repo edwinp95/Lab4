@@ -164,21 +164,51 @@ function fetchComments($id) {
 
 function setComment($id) {
 
-    //TODO complete implementation using the product id
-    alert("app.js/setComment() not implemented")
+    let comment =$('#message-text').val(); //gets the user's comment
+    let score =$('#score').val(); //gets the score
 
-    //HINT
-    //Take note of how the Ajax call in app.js/fetchComments() posts a GET request to corresponding API endpoint.
-    //Look at the Microservice API Documentation and find out the appripriate type of request for this action.
+    $.ajax({
+        url: Url+'SetComment',
+        type: 'post',
+        dataType: 'json',
+        data: JSON.stringify({"product_id":$id, "comment":comment, "score":score}), //the json is defined here using javascript's dictionary syntax.
+        contentType: 'text/plain',
+
+        success: function (data) { //on success
+            alert("Comment Submitted!");
+        },
+        error: function (data) { //on error, throw an alert
+            alert("Error posting comment.");
+        }
+    });
 
 }
 
 function addToCart($id) {
 
-    //TODO complete implementation using the product id
-    alert("app.js/addToCart() not implemented")
+    let email =$.trim($('#email').val()); //gets the user's email
 
+    if( email !='' ) {
+        sessionStorage.setItem('email', email); //setItem 'email' in sessionStorage to be the user's email. You can access sessionStorage by sessionStorage.getItem().
 
+        $.ajax({
+            url: Url+'AddToCart',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify({"product_id":$id, "email":email}), //the json is defined here using javascript's dictionary syntax.
+            contentType: 'text/plain',
+    
+            success: function (data) { //on success
+                alert("Item Added!");
+            },
+            error: function (data) { //on error, throw an alert
+                alert("Error adding product.");
+            }
+        });
+
+    } else {
+        alert("Please enter your email at top of page."); //alert user since email is empty
+    }
 }
 
 function toShoppingCart(){

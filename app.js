@@ -11,6 +11,7 @@ function fetchProductList() {
     !($.trim($('#operating_system').val()) == '') ? item ["operating_system"] = $('#operating_system').val(): '';
     !($.trim($('#min_price').val()) == '') ? item ["price_from"] = $('#min_price').val(): '';
     !($.trim($('#max_price').val()) == '') ? item ["price_to"] = $('#max_price').val(): '';
+    !($.trim($('#score').val()) == '') ? item ["score"] = $('#score').val(): '';
 
     jsonObj.push(item);
 
